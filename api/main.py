@@ -1,12 +1,15 @@
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
 from sqlalchemy.testing import db
-
+from routers import router
 from database import SessionLocal, Base, engine
 from models import User, Movie
 from schemas import MovieCreate
 
 app = FastAPI()
+
+
+app.include_router(router)
 
 
 Base.metadata.create_all(bind=engine)
@@ -24,6 +27,7 @@ def root():
     ##  db.commit()
     ##  db.refresh(db_movie)
     ##  return db_movie
+
 
 
 
