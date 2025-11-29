@@ -24,14 +24,14 @@ class Movie(Base):
     genre = Column(String)
     release_year = Column(Integer)
     reviews = relationship("Review", back_populates="movie")
-    actors = relationship("Actor", secondary=movie_actor, back_populates="movie")
+    actors = relationship("Actor", secondary=movie_actor, back_populates="movies")
 
 
 class Actor(Base):
     __tablename__ = "actors"
     id = Column(Integer, primary_key=True)
     name = Column(String, unique=True)
-    movies = relationship("Movie", secondary=movie_actor, back_populates="actor")
+    movies = relationship("Movie", secondary=movie_actor, back_populates="actors")
 
 
 class Review(Base):
@@ -40,7 +40,8 @@ class Review(Base):
     score = Column(Integer)
     user_id = Column(Integer, ForeignKey("users.id"))
     movie_id = Column(Integer, ForeignKey("movies.id"))
-    user = relationship("User", back_populates="review")
-    movie = relationship("Movie", back_populates="review")
+    user = relationship("User", back_populates="reviews")
+    movie = relationship("Movie", back_populates="reviews")
+
 
 
